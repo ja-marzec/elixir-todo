@@ -1,0 +1,32 @@
+<form action="#" phx-submit="add">
+    <%= text_input :todo, :title, placeholder: "What do you want to get done?" %>
+        <%= submit "Add" , phx_disable_with: "Adding..." %>
+</form>
+<div>
+    TODO
+    <%= for todo <- @todos do %>
+    <%= if !todo.done do %>
+    <div>
+        <%= checkbox(:todo, :done, phx_click: "toggle_done" , phx_value_id: todo.id, value: todo.done) %>
+            <%= todo.title %>
+                <button type="button" phx-click="remove" phx-value-id={todo.id}>remove</button>
+    </div>
+    <% end %>
+    <% end %>
+</div>
+<div>
+    DONE
+    <%= for todo <- @todos do %>
+    <%= if todo.done do %>
+    <div>
+        <%= checkbox(:todo, :done, phx_click: "toggle_done" , phx_value_id: todo.id, value: todo.done) %>
+            <%= todo.title %>
+                <button type="button" phx-click="remove" phx-value-id={todo.id}>remove</button>
+    </div>
+    <% end %>
+    <% end %>
+
+    <%= if @great_job_visible do %>
+        GREAT JOB TODAY!
+    <% end %>
+</div>
